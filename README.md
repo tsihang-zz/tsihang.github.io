@@ -1,37 +1,109 @@
-## Welcome to GitHub Pages
+# White Paper
 
-You can use the [editor on GitHub](https://github.com/tsihang/tsihang.github.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+**White Paper** is a theme for Jekyll. It is built keeping content in focus and is best for writers/developers who also like to share code with their essays.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## How to use White Paper
 
-### Markdown
+Fork the repo to your account by clicking the button on the top right as shown in the image:
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+![fork](https://cldup.com/vOF0oaUkh5-3000x3000.png) and then where you want to fork it as shown below.
 
-```markdown
-Syntax highlighted code block
+![fork-repo](https://cldup.com/QMGPJDlayN-3000x3000.png)
 
-# Header 1
-## Header 2
-### Header 3
+Next, Go the the project settings and change the repository name to `<username>.github.io` where username is your username.
 
-- Bulleted
-- List
+Change these entries in the `_config.yml` file:
 
-1. Numbered
-2. List
+Also, change this line in head.html [link](https://github.com/vinitkumar/white-paper/blob/9ad021a8f94c6240351bd57eda301b5f207e554e/_includes/head.html#L28)
 
-**Bold** and _Italic_ and `Code` text
+```html
+<!-- From this -->
+<link rel="stylesheet" href=" {{ '/css/main.min.css' | relative_url }}" type="text/css" />
+<!-- To this -->
+<link rel="stylesheet" href=" {{ '/css/main.min.css' | absolute_url }}" type="text/css" />
 
-[Link](url) and ![Image](src)
+```
+This will make sure that the path of CSS is correct and the theme loads correctly.
+
+```yml
+master_repo: false
+url: "<username>.github.io"
+```
+Also, change all other fields in the `_config.yml` file to your choice.
+
+## Installation
+
+### Local Development
+
+This theme requires you to install couple of tools first to setup jekyll locally.
+
+```$
+git clone git@github.com:vinitkumar/white-paper.git
+
+# If you have ruby installed.
+gem install jekyll bundler
+
+# If you have node installed.
+npm install
+sudo npm install -g grunt-cli  #to get the task runner for grunt.
+bundle install
+jekyll serve
+
+# on running the serve script, the site will be live on 
+http://127.0.0.1:4000
+```
+This theme uses grunt to concat & minify the css for best performance. In order to prepare the css build. Run `grunt`
+It will create a main.min.css file in the css folder.
+
+### Switch Syntax Highlighting.
+
+This theme also provides syntax highlighting in different theme. Inside css folder, there is a syntax folder.
+
+```$
+.
+├── emacs.css
+├── github.css
+├── monokai.css
+├── native.css
+├── syntax.css
+└── vim.css
+
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+Now in the gruntfiles.js
 
-### Jekyll Themes
+```js
+concat: {
+  dist: {
+    src: [
+      'css/base.css',
+      'css/sytax/emacs.css', // change this to another theme if you prefer, like vim.css and run grunt
+      'css/octicons.css'
+    ],
+    dest: 'css/<%= pkg.name %>.add.css'
+  }
+}
+```
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/tsihang/tsihang.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+# White Paper in Action
 
-### Support or Contact
+- Home page
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+![home](https://cldup.com/Ml53I1dCm4-3000x3000.png)
+
+
+- Post Detail View
+
+![post detail](https://cldup.com/T9R_1bU8BM-3000x3000.png)
+
+## License 
+* see [LICENSE](https://github.com/vinitkumar/white-paper/blob/gh-pages/LICENSE) file
+
+## Version 
+* Version 2.1.0
+
+## Contact
+#### Developer
+* Homepage: http://vinitkumar.me
+* e-mail: vinit1414.08@bitmesra.ac.in
+* Twitter: [@vinitkme](https://twitter.com/vinitkme "vinitkme on twitter")
