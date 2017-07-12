@@ -1,109 +1,121 @@
-# White Paper
+# very-simple
 
-**White Paper** is a theme for Jekyll. It is built keeping content in focus and is best for writers/developers who also like to share code with their essays.
+[Demo](http://lotabout.github.io/very-simple/)
 
-## How to use White Paper
-
-Fork the repo to your account by clicking the button on the top right as shown in the image:
-
-![fork](https://cldup.com/vOF0oaUkh5-3000x3000.png) and then where you want to fork it as shown below.
-
-![fork-repo](https://cldup.com/QMGPJDlayN-3000x3000.png)
-
-Next, Go the the project settings and change the repository name to `<username>.github.io` where username is your username.
-
-Change these entries in the `_config.yml` file:
-
-Also, change this line in head.html [link](https://github.com/vinitkumar/white-paper/blob/9ad021a8f94c6240351bd57eda301b5f207e554e/_includes/head.html#L28)
-
-```html
-<!-- From this -->
-<link rel="stylesheet" href=" {{ '/css/main.min.css' | relative_url }}" type="text/css" />
-<!-- To this -->
-<link rel="stylesheet" href=" {{ '/css/main.min.css' | absolute_url }}" type="text/css" />
-
-```
-This will make sure that the path of CSS is correct and the theme loads correctly.
-
-```yml
-master_repo: false
-url: "<username>.github.io"
-```
-Also, change all other fields in the `_config.yml` file to your choice.
+A theme that aimed to be very simple, creatd by [lotabout](https://github.com/lotabout)
 
 ## Installation
 
-### Local Development
-
-This theme requires you to install couple of tools first to setup jekyll locally.
-
-```$
-git clone git@github.com:vinitkumar/white-paper.git
-
-# If you have ruby installed.
-gem install jekyll bundler
-
-# If you have node installed.
-npm install
-sudo npm install -g grunt-cli  #to get the task runner for grunt.
-bundle install
-jekyll serve
-
-# on running the serve script, the site will be live on 
-http://127.0.0.1:4000
-```
-This theme uses grunt to concat & minify the css for best performance. In order to prepare the css build. Run `grunt`
-It will create a main.min.css file in the css folder.
-
-### Switch Syntax Highlighting.
-
-This theme also provides syntax highlighting in different theme. Inside css folder, there is a syntax folder.
-
-```$
-.
-├── emacs.css
-├── github.css
-├── monokai.css
-├── native.css
-├── syntax.css
-└── vim.css
+Install theme and renderers:
 
 ```
-
-Now in the gruntfiles.js
-
-```js
-concat: {
-  dist: {
-    src: [
-      'css/base.css',
-      'css/sytax/emacs.css', // change this to another theme if you prefer, like vim.css and run grunt
-      'css/octicons.css'
-    ],
-    dest: 'css/<%= pkg.name %>.add.css'
-  }
-}
+git clone https://github.com/lotabout/very-simple themes/very-simple
+npm install hexo-renderer-sass --save
+npm install hexo-renderer-jade --save
 ```
 
-# White Paper in Action
+Edit `_config.yml` in hexo root, change `theme` to `very-simple`.
 
-- Home page
+## Configuration
+Default config:
 
-![home](https://cldup.com/Ml53I1dCm4-3000x3000.png)
+```
+# very-simple/_config.yml
+menu:
+  Home: /
+  Archives: archives
+social:
+  email:
+  twitter:
+  github:
+  googleplus:
+  rss: /atom.xml
+fancybox: true
+duoshuo: #duoshuo_shortname
+disqus: #disqus _shortname
+google_analytics: #Google Analytics Tracking Code
+google_adsense_page_level_ads: #Google Adsense Page Level Ads Code
+```
 
+- menu - The navigation links on the header
+- social - Social icons such as email/github/twitter etc. to show on the footer
+  - email - Email address
+  - twitter - twitter account
+  - github - github account
+  - googleplus - Google Plus account
+  - rss - RSS subscription link, learn more in [hexo-generator-feed](https://github.com/hexojs/hexo-generator-feed)
+- fancybox - Enable [Fancybox](http://fancyapps.com/fancybox/)
+- duoshuo - [Duoshuo](http://duoshuo.com) shortname
+- disqus - [Disqus](https://disqus.com) shortname
+- google_analytics - Google Analytics Tracking Code
+- google_adsense_page_level_ads: - Google Adsense Page Level Ads Code
 
-- Post Detail View
+If you want to contain this theme only as a submodule, then you may be
+unwilling to keep all configuration inside theme
+folder(`very-simple/_config.yml`). In this case, you can keep the
+configurations in root configuration file `/_config.yml` by:
 
-![post detail](https://cldup.com/T9R_1bU8BM-3000x3000.png)
+```
+# /_config.yml
+very_simple:
+  menu:
+    Home: /
+    Archives: archives
+  social:
+    email:
+    twitter:
+    github:
+    googleplus:
+    rss: /atom.xml
+  fancybox: true
+  duoshuo: #duoshuo_shortname
+  disqus: #disqus _shortname
+  google_analytics: #Google Analytics Tracking Code
+  google_adsense_page_level_ads: #Google Adsense Page Level Ads Code
+```
 
-## License 
-* see [LICENSE](https://github.com/vinitkumar/white-paper/blob/gh-pages/LICENSE) file
+##Features
 
-## Version 
-* Version 2.1.0
+#### Logo
+You can set a **favicon.ico** for your website, please put it into  `source` folder of hexo directory, recommended size: 32px*32px.
 
-## Contact
-#### Developer
-* Homepage: http://vinitkumar.me
-* e-mail: vinit1414.08@bitmesra.ac.in
-* Twitter: [@vinitkme](https://twitter.com/vinitkme "vinitkme on twitter")
+#### Pages
+
+To customize pages, such as traditional 'About' page, follow the following
+steps:
+
+1. create a directory `about/` under `/source`
+2. create a corresponding index page `index.md` under directory `about/`.
+3. add link to the page to `menu` configuration:
+
+    menu:
+      About: about
+
+Note that you don't need to add directory and create `about.md` under
+`/source`. But the configuration should changed to:
+
+```
+    menu:
+      About: about.html
+```
+
+#### Comments
+
+You can control whether to show comment system(default to enabled) in pages.
+Just add `comments: true` or `comments: false` in `front-matter` section of
+page. i.e.
+
+```
+title: About
+date: 2013-12-26 22:52:56
+layout: page
+comments: true
+---
+```
+
+#### Excerpt
+You can control the abstract of a post shown at index, by:
+
+1. Filling a `description:` item in `front-matter` of the `post.md`
+2. Just inserting a `<!--more-->` before your hidden content.
+3. Otherwise it will fetch the first paragraph as excerpt.
